@@ -51,7 +51,7 @@ app.post('/sendEmail', (req, res) => {
     const textEmail = {
         from: 'John Doe <yourEmail@email.com>',
         to: req.body.emailAddress,
-        subject: 'Test',
+        subject: req.body.emailSubject,
         text: req.body.emailMessage,
         html: "<b>This is a test.</b>"
     };
