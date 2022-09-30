@@ -21,7 +21,7 @@ app.post('/sendEmail', (req, res) => {
 
     // Setup credentials to interact with nodemailer.
     const transporter = nodemailer.createTransport({
-        host: 'smtp-mail.outlook.com',
+        host: 'smtp-mail.outlook.com', // Use preferred email service. Documentation at https://nodemailer.com/about/.
         service: 'outlook',
         secureConnection: false,
         tls: {
@@ -32,14 +32,14 @@ app.post('/sendEmail', (req, res) => {
         maxConnections: true,
         maxMessages: true,
         auth: {
-            user: 'yourEmail@email.com',
-            pass: 'yourEmailPassword'
+            user: 'yourEmail@email.com', // Add email address.
+            pass: 'yourEmailPassword' // Add email address account password.
         }
     })
 
     // For sending a message(s) as an email(s).
     const textEmail = {
-        from: 'John Doe <yourEmail@email.com>',
+        from: 'John Doe <yourEmail@email.com>', // Add name and email address.
         to: req.body.emailAddress,
         subject: req.body.emailSubject,
         text: req.body.emailMessage,
