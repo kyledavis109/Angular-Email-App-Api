@@ -14,15 +14,10 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/', (req, res) => {
-    console.log('Hello!');
-});
-
+// Route for sending emails using nodemailer library.
 app.post('/sendEmail', (req, res) => {
     console.log(req.body, 'data of form');
     const nodemailer = require("nodemailer");
-
-    // Main function for sending emails.
 
     // Setup credentials to interact with nodemailer.
     const transporter = nodemailer.createTransport({
@@ -42,30 +37,24 @@ app.post('/sendEmail', (req, res) => {
         }
     })
 
-        /* Specify the recipient(s) email addresses that you would like to send emails to. If specifying multiple
-            recipients, seperate each email address with a coma. Make sure email addresses are strings.
-            Ex. const emailList = ['johndoe@gmail.com', 'janedoe@gmail.com', 'joshdoe@gmail.com'] etc... */
-        // const emailList = ['kyledavis109@gmail.com']
-
     // For sending a message(s) as an email(s).
     const textEmail = {
         from: 'John Doe <yourEmail@email.com>',
         to: req.body.emailAddress,
         subject: req.body.emailSubject,
         text: req.body.emailMessage,
-        html: "<b>This is a test.</b>"
     };
 
-    // // For sending an image(s) files as an email(s).
+    // For sending an image(s) files as an email(s).
     // const imageEmail = {
-    //     from: 'John Doe <a.0a5@outlook.com>',
-    //     to: emailList,
-    //     subject: 'Test',
-    //     html: 'Embedded image: <img src="cid:kyle"/>',
+    //     from: 'John Doe <yourEmail@email.com>',
+    //     to: req.body.emailAddress,
+    //     subject: req.body.emailSubject,
+    //     html: 'Embedded image: <img src="cid:1"/>',
     //     attachments: [{
     //         filename: '1.jpeg',  // Specify name of image file you would like to send.
     //         path: '../1.jpeg', // Specify path to image file.
-    //         cid: 'kyle' //Same cid value as in the html img src above.
+    //         cid: '1' //Same cid value as in the html img src above.
     //     }]
     // }
 
@@ -91,16 +80,16 @@ app.post('/sendEmail', (req, res) => {
     });
 
     // Runs the sendmail method of nodemailer to send the image email(s).
-//     transporter.sendMail(imageEmail, (err, res) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log('Email(s) sent successfully!');
-//         }
-//     });
+    // transporter.sendMail(imageEmail, (err, res) => {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         console.log('Email(s) sent successfully!');
+    //     }
+    // });
 });
 
-
+// Runs the server on the sepcified port.
 app.listen(process.env.PORT, () => {
     console.log('Server is running...');
 });
