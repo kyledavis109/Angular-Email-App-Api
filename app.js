@@ -16,8 +16,20 @@ app.use(function (req, res, next) {
 
 // Route for sending emails using nodemailer library.
 app.post('/sendEmail', (req, res) => {
-    console.log(req.body, 'data of form');
-    const nodemailer = require("nodemailer");
+
+    try {
+        console.log(req.body, 'data of form');
+        const nodemailer = require("nodemailer");
+
+        // Validate request object.
+        const emailReq = req.body;
+        if (emailReq === null || emailReq === undefined) {
+            return res.status(400).send('emailReq request body required.');
+        } else if (typeof emailReq !== 'object') {
+            return res.status(400).send('emailReq request must be an object.');
+        } else if (emailReq === '') {
+            return res.status(400).send('emailReq request object must not be empty.');
+        };
 
     // Setup credentials to interact with nodemailer.
     const transporter = nodemailer.createTransport({
@@ -87,6 +99,11 @@ app.post('/sendEmail', (req, res) => {
     //         console.log('Email(s) sent successfully!');
     //     }
     // });
+    
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send('Server failed to send email.');
+    };
 });
 
 // Runs the server on the sepcified port.
