@@ -54,7 +54,7 @@ app.post('/sendEmail', (req, res) => {
         from: 'John Doe <yourEmail@email.com>', // Add name and email address.
         to: req.body.emailAddress,
         subject: req.body.emailSubject,
-        text: req.body.emailMessage,
+        text: req.body.emailMessage
     };
 
     // For sending an image(s) files as an email(s).
